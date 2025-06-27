@@ -1,36 +1,50 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import ResultCard from './ResultCard'
-import { Spinner } from './spinner'
+import { useState } from "react";
+import ResultCard from "./ResultCard";
+import { Spinner } from "./spinner";
+
+type Result = {
+  idea: string;
+  caption: string;
+  hashtags: string[];
+  hook: string;
+};
 
 export default function Form() {
-  const [topic, setTopic] = useState('')
-  const [niche, setNiche] = useState('fashion')
-  const [result, setResult] = useState<any>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [topic, setTopic] = useState("");
+  const [niche, setNiche] = useState("fashion");
+  const [result, setResult] = useState<Result | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    setResult(null)
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setResult(null);
 
     try {
-      const res = await fetch('/api/generate', {
-        method: 'POST',
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ topic, niche }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed to generate')
-      setResult(data)
-    } catch (err: any) {
-      setError(err.message)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to generate");
+      setResult(data);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-md space-y-5 w-full">
@@ -39,14 +53,14 @@ export default function Form() {
           type="text"
           placeholder="Enter a topic"
           value={topic}
-          onChange={e => setTopic(e.target.value)}
+          onChange={(e) => setTopic(e.target.value)}
           className="w-full px-3 py-2 border rounded text-sm sm:text-base"
           required
         />
 
         <select
           value={niche}
-          onChange={e => setNiche(e.target.value)}
+          onChange={(e) => setNiche(e.target.value)}
           className="w-full px-3 py-2 border rounded text-sm sm:text-base"
         >
           <option value="fashion">Fashion</option>
@@ -65,12 +79,12 @@ export default function Form() {
               Generating...
             </>
           ) : (
-            'Generate Idea'
+            "Generate Idea"
           )}
         </button>
       </form>
       {error && <p className="text-red-600 text-sm">{error}</p>}
       {result && <ResultCard {...result} />}
     </div>
-  )
+  );
 }

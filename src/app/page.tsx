@@ -7,7 +7,7 @@ export default function Home() {
         <h1 className="text-2xl sm:text-3xl font-bold text-center">
           🎯 Content Idea Assistant
         </h1>
-        <Form />
+        <Form/>
       </div>
     </main>
   );
