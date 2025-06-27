@@ -14,23 +14,43 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Content Idea Assistant (Module 1)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This is a simple AI-driven Instagram content generator built with **Next.js 14**, **OpenAI API**, and **Tailwind CSS**.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-  Enter a topic
+-  Choose a content niche (e.g., fashion, fitness, finance)
+- Uses GPT-4 or GPT-3.5 to generate:
+- A reel idea
+- A caption
+- 5 relevant hashtags
+- A strong opening hook
+- API route with OpenAI completion
+- Stylish and responsive UI
+- Loading and ❌ error handling
+- Dark mode compatible
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Framework**: Next.js App Router (14+)
+- **Styling**: Tailwind CSS
+- **API**: OpenAI API via `openai` npm package
+- **Runtime**: Edge functions (via `app/api/generate/route.ts`)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Getting Started
+
+### 1. Clone & install
+
+```bash
+git clone https://github.com/your-user/content-idea-assistant
+cd content-idea-assistant
+pnpm install
